@@ -8,6 +8,7 @@ public class SpriteStack : MonoBehaviour
     public GameObject wake;
     public GameObject bubbles;
     public bool sink;
+    public bool riseAtStart;
     public float sinkDuration = 1;
 
     public bool wiggle;
@@ -41,6 +42,22 @@ public class SpriteStack : MonoBehaviour
             sprites[i].GetComponent<SpriteRenderer>().sortingOrder = i + baseSortingOrder;
         }
 
+        if (riseAtStart) {
+
+            if (wiggle) {
+                wiggle = false;
+                Invoke("startWiggle", sinkDuration);
+            }
+
+            for (int i = 0;i < sprites.Length;i++)
+            {
+                sprites[i].GetComponent<SpriteRenderer>().sortingOrder -= sprites.Length;
+                sprites[i].transform.position = new Vector2(sprites[i].transform.position.x, sprites[i].transform.position.y - (spacing * sprites.Length));
+                
+            }
+            StartCoroutine(sinkAnim(1));
+        }
+
     }
 
     void Update()
@@ -50,7 +67,7 @@ public class SpriteStack : MonoBehaviour
 
         if (sink) {
 
-            StartCoroutine(sinkAnim());
+            StartCoroutine(sinkAnim(-1));
             sink = false;
         
         }
@@ -77,7 +94,7 @@ public class SpriteStack : MonoBehaviour
     
     }
 
-    public IEnumerator sinkAnim()
+    public IEnumerator sinkAnim(int dir)
     {
         wake.SetActive(false);
         ParticleSystem bubbleParticles = Instantiate(bubbles, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
@@ -92,8 +109,8 @@ public class SpriteStack : MonoBehaviour
             yield return new WaitForSeconds(sinkDuration/sprites.Length);
             for (int j = 0; j < sprites.Length; ++j)
             {
-                sprites[j].transform.position = new Vector2(sprites[j].transform.position.x, sprites[j].transform.position.y - spacing);
-                sprites[j].GetComponent<SpriteRenderer>().sortingOrder -= 1;
+                sprites[j].transform.position = new Vector2(sprites[j].transform.position.x, sprites[j].transform.position.y + spacing * dir);
+                sprites[j].GetComponent<SpriteRenderer>().sortingOrder += dir;
             }
 
         }
@@ -109,8 +126,12 @@ public class SpriteStack : MonoBehaviour
     }
 
     float timer = 0;
-    
 
+    void startWiggle() {
+
+        wiggle = true;
+    
+    }
     public void sinWiggle() { 
     
         for (int i = 0;i < sprites.Length; ++i)

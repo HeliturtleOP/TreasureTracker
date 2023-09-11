@@ -10946,7 +10946,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -11801,6 +11801,7 @@ MonoBehaviour:
   wake: {fileID: 163302132}
   bubbles: {fileID: 2745558090951183754, guid: ad51994ddb44f3c45bf297ce8a0020da, type: 3}
   sink: 0
+  riseAtStart: 1
   sinkDuration: 0.5
   wiggle: 1
   rotation: 45
@@ -13201,6 +13202,7 @@ MonoBehaviour:
   wake: {fileID: 202698064}
   bubbles: {fileID: 2745558090951183754, guid: ad51994ddb44f3c45bf297ce8a0020da, type: 3}
   sink: 0
+  riseAtStart: 0
   sinkDuration: 0.5
   wiggle: 0
   rotation: 0
