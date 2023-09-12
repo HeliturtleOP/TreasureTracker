@@ -38,16 +38,11 @@ public class SpriteStack : MonoBehaviour
         for (int i = 0; i < sprites.Length; i++) 
         {
             sprites[i] = transform.GetChild(i);
-            sprites[i].transform.localPosition = new Vector2(transform.position.x, i*spacing);
+            sprites[i].transform.localPosition = new Vector2(transform.localPosition.x, i*spacing);
             sprites[i].GetComponent<SpriteRenderer>().sortingOrder = i + baseSortingOrder;
         }
 
         if (riseAtStart) {
-
-            if (wiggle) {
-                wiggle = false;
-                Invoke("startWiggle", sinkDuration);
-            }
 
             for (int i = 0;i < sprites.Length;i++)
             {
@@ -115,7 +110,7 @@ public class SpriteStack : MonoBehaviour
 
         }
 
-        
+        wake.SetActive(true);
 
     }
 
@@ -127,18 +122,13 @@ public class SpriteStack : MonoBehaviour
 
     float timer = 0;
 
-    void startWiggle() {
-
-        wiggle = true;
-    
-    }
     public void sinWiggle() { 
     
         for (int i = 0;i < sprites.Length; ++i)
         {
 
-            sprites[i].transform.localPosition = new Vector2(Mathf.Sin(((float)i) + timer) * spacing, i*spacing);
-            //sprites[i].transform.localPosition = (Vector2)sprites[0].transform.up * (Mathf.Sin(((float)i) + timer * spacing));
+            sprites[i].transform.localPosition = new Vector2(Mathf.Sin(((float)i) + timer) * spacing, sprites[i].transform.localPosition.y);
+
         }
 
         timer += Time.deltaTime;
