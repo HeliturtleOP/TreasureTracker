@@ -10,21 +10,30 @@ public class PlayerCannons : MonoBehaviour
 
     public GameObject[] cannonPositions;
 
+    public ParticleSystem[] particlePoints;
+
+    public AudioSource cannonAudio;
+
+    private ScreenShake screenShake;
+
     void Start()
     {
-        
+        screenShake = Camera.main.GetComponent<ScreenShake>();
     }
     
     void Update()
     {
         if (Input.GetButtonDown("Jump")) 
-        { 
-        
-            foreach (GameObject obj in cannonPositions)
+        {
+            cannonAudio.Play();
+            screenShake.ShakeScreen(0.03f, 0.05f, 3);
+            for (int i = 0; i < cannonPositions.Length; i++)
             {
-                GameObject fresh = Instantiate(cannonBall, obj.transform.position, obj.transform.rotation);
-                fresh.GetComponent<Rigidbody2D>().AddForce(obj.transform.up * cannonForce, ForceMode2D.Impulse);
+                particlePoints[i].Play();
+                GameObject fresh = Instantiate(cannonBall, cannonPositions[i].transform.position, cannonPositions[i].transform.rotation);
+                fresh.GetComponent<Rigidbody2D>().AddForce(cannonPositions[i].transform.up * cannonForce, ForceMode2D.Impulse);
             }
+
         
         }
     }

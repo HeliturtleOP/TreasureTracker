@@ -123,7 +123,7 @@ public class SimpleEnemy : MonoBehaviour
     {
         if (collision.gameObject.layer == 8) {
 
-            Camera.main.GetComponent<ScreenShake>().StartCoroutine("Shake");
+            Camera.main.GetComponent<ScreenShake>().ShakeScreen(0.07f, 0.04f, 6);
             absoluteLock = true;
             GetComponentInChildren<Collider2D>().enabled = false;
             spriteStack.sink = true;

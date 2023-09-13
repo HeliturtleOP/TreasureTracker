@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class ScreenShake : MonoBehaviour
 {
-    public float magnitude = 0.05f;
-    public float frequency = 30f;
     public float harshness = 5f;
-    public int shakes = 5;
+
 
     private Vector3 cache;
     private Vector3 desiredPosition;
@@ -28,10 +26,16 @@ public class ScreenShake : MonoBehaviour
 
     }
 
-    public IEnumerator Shake()
+    public void ShakeScreen(float magnitude, float frequency, float shakeAmount) {
+
+        StartCoroutine(Shake(magnitude, frequency, shakeAmount));
+    
+    }
+
+    public IEnumerator Shake(float magnitude, float frequency, float shakeAmount)
     {
 
-        for (int i = 0; i < shakes; i++)
+        for (int i = 0; i < shakeAmount; i++)
         {
             float x = Random.Range(-magnitude, magnitude);
             float y = Random.Range(-magnitude, magnitude);
@@ -40,7 +44,7 @@ public class ScreenShake : MonoBehaviour
 
             timer = 0;
 
-            yield return new WaitForSeconds(1 / frequency);
+            yield return new WaitForSeconds(frequency);
         }
 
         desiredPosition = cache;
