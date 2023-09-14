@@ -21,12 +21,13 @@ public class SimpleEnemy : MonoBehaviour
 
     private float speed;
     private float rotation = 0;
+    private float desiredRotation;
 
     private GameObject player;
     private SpriteStack spriteStack;
     private Rigidbody2D rb;
 
-    private float timer = 0;
+    private float attackTimer = 0;
     private Vector2 movementDir;
 
     void Start()
@@ -44,8 +45,8 @@ public class SimpleEnemy : MonoBehaviour
 
         FindRotation();
         TargetingLogic();
+        SetRotation();
 
-        
 
         if (absoluteLock)
         {
@@ -55,11 +56,10 @@ public class SimpleEnemy : MonoBehaviour
         }
         else
         {
-
             rb.constraints = RigidbodyConstraints2D.None;
         }
 
-        SetRotation();
+        
 
     }
 
@@ -73,34 +73,34 @@ public class SimpleEnemy : MonoBehaviour
 
         movementDir = player.transform.position;
         movementDir = new Vector2(movementDir.x - transform.position.x, movementDir.y - transform.position.y);
-        movementDir = movementDir.normalized;
+        movementDir = movementDir.normalized;       
 
     }
 
     void TargetingLogic() {
 
-        if (Vector2.Distance(transform.position, player.transform.position) < retreatDistance && timer < attackLength)
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance < attackRange && attackTimer <= attackLength)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
-            {
 
-                timer += Time.deltaTime;
-                lockRot = true;
-                speed = attackSpeed;
+            attackTimer += Time.deltaTime;
+            lockRot = true;
+            speed = attackSpeed;
 
-            }
         }
-        else if (Vector2.Distance(transform.position, player.transform.position) < retreatDistance && timer > attackLength)
+        else if(distance < retreatDistance && attackTimer != 0)
         {
             lockRot = false;
             speed = moveSpeed;
-            movementDir = -movementDir;
+            desiredRotation = desiredRotation = Vector2.SignedAngle(-spriteStack.sprites[0].transform.up, movementDir);
         }
         else
         {
             lockRot = false;
             speed = moveSpeed;
-            timer = 0;
+            attackTimer = 0;
+            desiredRotation = Vector2.SignedAngle(spriteStack.sprites[0].transform.up, movementDir);
         }
 
     }
@@ -111,8 +111,19 @@ public class SimpleEnemy : MonoBehaviour
         if (!lockRot)
         {
 
-            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDir);
-            rotation = Quaternion.Slerp(Quaternion.Euler(new Vector3(0, 0, rotation)), toRotation, rotSpeed).eulerAngles.z;
+            if (desiredRotation < 0)
+            {
+
+                rotation -= rotSpeed * Time.deltaTime;
+
+            }
+            else if (desiredRotation > 0)
+            {
+
+
+                rotation += rotSpeed * Time.deltaTime;
+            }
+
             spriteStack.rotation = rotation;
 
         }

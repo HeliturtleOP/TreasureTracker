@@ -25,7 +25,7 @@ public class SpriteStack : MonoBehaviour
     public float pixelSpacing = 1;
     private float spacing;
 
-    private Transform[] sprites;
+    public Transform[] sprites;
 
     void Start()
     {

@@ -29,6 +29,10 @@ public class PlayerCannons : MonoBehaviour
             screenShake.ShakeScreen(0.03f, 0.05f, 3);
             for (int i = 0; i < cannonPositions.Length; i++)
             {
+                var main = particlePoints[i].main;
+                float rot = Random.Range(0, 4) * 90 * Mathf.Deg2Rad;
+                main.startRotation = rot;
+
                 particlePoints[i].Play();
                 GameObject fresh = Instantiate(cannonBall, cannonPositions[i].transform.position, cannonPositions[i].transform.rotation);
                 fresh.GetComponent<Rigidbody2D>().AddForce(cannonPositions[i].transform.up * cannonForce, ForceMode2D.Impulse);
