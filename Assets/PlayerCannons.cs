@@ -25,12 +25,14 @@ public class PlayerCannons : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump")) 
         {
+            
+
             cannonAudio.Play();
             screenShake.ShakeScreen(0.03f, 0.05f, 3);
             for (int i = 0; i < cannonPositions.Length; i++)
             {
                 var main = particlePoints[i].main;
-                float rot = Random.Range(0, 4) * 90 * Mathf.Deg2Rad;
+                float rot = (Random.Range(0, 4) * 90 * Mathf.Deg2Rad) + cannonPositions[i].transform.parent.rotation.z;
                 main.startRotation = rot;
 
                 particlePoints[i].Play();
