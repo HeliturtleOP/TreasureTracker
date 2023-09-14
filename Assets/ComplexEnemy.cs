@@ -50,7 +50,7 @@ public class ComplexEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = spriteStack.getRotation() * speed;
+        rb.AddForce(spriteStack.getRotation() * speed);
     }
 
     void TargetPlayer()
