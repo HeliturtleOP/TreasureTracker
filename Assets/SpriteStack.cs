@@ -38,7 +38,7 @@ public class SpriteStack : MonoBehaviour
         for (int i = 0; i < sprites.Length; i++) 
         {
             sprites[i] = transform.GetChild(i);
-            sprites[i].transform.localPosition = new Vector2(transform.localPosition.x, i*spacing);
+            sprites[i].transform.localPosition = new Vector2(0, i*spacing);
             sprites[i].GetComponent<SpriteRenderer>().sortingOrder = i + baseSortingOrder;
         }
 

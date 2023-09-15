@@ -4,33 +4,29 @@ using UnityEngine;
 
 public class ComplexEnemy : MonoBehaviour
 {
-    public float speed;
-
+    [Header("Movement Settings")]
+    public float moveSpeed;
+    public float rotSpeed = 50f;
+     
+    [Header("Behaviour Settings")]
     public float targetingRange = 5f;
     public float retreatRange = 2;
+    public float navPointRadius = 1;
+    public Transform leftNavPoint;
+    public Transform rightNavPoint;
 
-    public float rotSpeed = 0.1f;
-
-    public float attackFrequency = 3f;
-    public float cannonForce = 6;
-
-    public GameObject cannonBall;
-
-    public GameObject[] cannonPositions;
-
-    public ParticleSystem[] particlePoints;
-
+    private float speed;
     private float rotation;
 
     private float desiredRotation;
     private Vector2 movementDir;
 
-    private float attackTimer;
-
     private GameObject player;
     private SpriteStack spriteStack;
     private Rigidbody2D rb;
     private ScreenShake screenShake;
+
+    int randomDir;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +35,12 @@ public class ComplexEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         spriteStack = GetComponentInChildren<SpriteStack>();
         rb = GetComponent<Rigidbody2D>();
+
+        speed = moveSpeed;
+
+        randomDir = Random.Range(0, 2);
+        randomDir = (int)Mathf.Lerp(-1,1,randomDir);
+
     }
 
     // Update is called once per frame
@@ -60,15 +62,38 @@ public class ComplexEnemy : MonoBehaviour
         movementDir = new Vector2(movementDir.x - transform.position.x, movementDir.y - transform.position.y);
         movementDir = movementDir.normalized;
 
-        if (desiredRotation < 0) 
-        {
+        Collider2D left = Physics2D.OverlapCircle(leftNavPoint.position, navPointRadius);
+        Collider2D right = Physics2D.OverlapCircle(rightNavPoint.position, navPointRadius);
 
-            rotation -= rotSpeed * Time.deltaTime;
-        
-        }else if (desiredRotation > 0)
+        if (left != null && right != null)
         {
+            speed = 0;
+        }else if (left!= null)
+        {
+            speed = moveSpeed;
+            rotation -= rotSpeed * Time.deltaTime;
+        }
+        else if (right != null)
+        {
+            speed = moveSpeed;
             rotation += rotSpeed * Time.deltaTime;
         }
+        else
+        {
+            speed = moveSpeed;
+            if (desiredRotation < 0)
+            {
+
+                rotation -= rotSpeed * Time.deltaTime;
+
+            }
+            else if (desiredRotation > 0)
+            {
+                rotation += rotSpeed * Time.deltaTime;
+            }
+        }
+
+
 
         spriteStack.rotation = rotation;
     }
@@ -81,41 +106,15 @@ public class ComplexEnemy : MonoBehaviour
         }
         else if (Vector2.Distance(transform.position, player.transform.position) < targetingRange)
         {
-             desiredRotation = Vector2.SignedAngle(-spriteStack.sprites[0].transform.right, movementDir);
-
-            if (desiredRotation >= -0.5f && desiredRotation <= 0.5f) {
-
-                attackTimer += Time.deltaTime;
-                if (attackTimer >= attackFrequency) {
-                    Shoot();
-                    attackTimer = 0;
-                }
-
-            
-            }
+             desiredRotation = Vector2.SignedAngle(randomDir * spriteStack.sprites[0].transform.right, movementDir);
         }
         else
         {
             desiredRotation = Vector2.SignedAngle(spriteStack.sprites[0].transform.up, movementDir);
+            randomDir = Random.Range(0, 2);
+            randomDir = (int)Mathf.Lerp(-1, 1, randomDir);
         }
 
-
-    }
-
-    void Shoot() {
-
-        screenShake.ShakeScreen(0.03f, 0.05f, 3);
-
-        for (int i = 0; i < cannonPositions.Length; i++)
-        {
-            var main = particlePoints[i].main;
-            float rot = (Random.Range(0, 4) * 90 * Mathf.Deg2Rad) + cannonPositions[i].transform.parent.rotation.z;
-            main.startRotation = rot;
-
-            particlePoints[i].Play();
-            GameObject fresh = Instantiate(cannonBall, cannonPositions[i].transform.position, cannonPositions[i].transform.rotation);
-            fresh.GetComponent<Rigidbody2D>().AddForce(cannonPositions[i].transform.up * cannonForce, ForceMode2D.Impulse);
-        }
 
     }
 
@@ -126,6 +125,12 @@ public class ComplexEnemy : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, targetingRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(leftNavPoint.position, navPointRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(rightNavPoint.position, navPointRadius);
+
     }
 
 }
