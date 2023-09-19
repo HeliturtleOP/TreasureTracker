@@ -20014,7 +20014,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0a5b9b0daaffb0e48b55f93e9192b82c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2ba43690339c4034bb6008e7b87633f1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -20125,7 +20125,7 @@ Transform:
   m_GameObject: {fileID: 2720321346856889689}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 0.6, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20713,7 +20713,7 @@ MonoBehaviour:
   rotSpeed: 50
   targetingRange: 4
   retreatRange: 2
-  navPointRadius: 0.4
+  navPointRadius: 0.35
   leftNavPoint: {fileID: 2521464563819248486}
   rightNavPoint: {fileID: 38537649204905973}
 --- !u!50 &8666171022316260813
@@ -20760,7 +20760,7 @@ MonoBehaviour:
   cannonBall: {fileID: 6829925296153707643, guid: 8b43718f40bc5bf49aadeb82b5e1f97b, type: 3}
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 311
   cannonPositions:
   - {fileID: 4878720664994580861}
   - {fileID: 8350342406305388749}
@@ -21565,7 +21565,7 @@ Transform:
   m_GameObject: {fileID: 8746496167194462844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

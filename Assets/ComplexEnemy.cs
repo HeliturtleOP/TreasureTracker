@@ -67,16 +67,16 @@ public class ComplexEnemy : MonoBehaviour
 
         if (left != null && right != null)
         {
-            speed = 0;
+            speed = moveSpeed * -1;
         }else if (left!= null)
         {
             speed = moveSpeed;
-            rotation -= rotSpeed * Time.deltaTime;
+            rotation -= rotSpeed * Time.deltaTime * 2;
         }
         else if (right != null)
         {
             speed = moveSpeed;
-            rotation += rotSpeed * Time.deltaTime;
+            rotation += rotSpeed * Time.deltaTime * 2;
         }
         else
         {
@@ -106,7 +106,7 @@ public class ComplexEnemy : MonoBehaviour
         }
         else if (Vector2.Distance(transform.position, player.transform.position) < targetingRange)
         {
-             desiredRotation = Vector2.SignedAngle(randomDir * spriteStack.sprites[0].transform.right, movementDir);
+             desiredRotation = Vector2.SignedAngle(randomDir* spriteStack.sprites[0].transform.right, movementDir);
         }
         else
         {

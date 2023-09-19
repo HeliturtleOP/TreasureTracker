@@ -17,6 +17,8 @@ public class EnemyCannons : MonoBehaviour
 
     public ParticleSystem[] particlePoints;
 
+    private AudioSource sound;
+
 
     private ScreenShake screenShake;
     private SpriteStack spriteStack;
@@ -25,6 +27,7 @@ public class EnemyCannons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sound = GetComponentInChildren<AudioSource>();
         spriteStack = GetComponentInChildren<SpriteStack>();
         screenShake = Camera.main.GetComponent<ScreenShake>();
     }
@@ -69,6 +72,7 @@ public class EnemyCannons : MonoBehaviour
     {
 
         screenShake.ShakeScreen(0.03f, 0.05f, 3);
+        sound.Play();
 
         for (int i = 0; i < cannonPositions.Length; i++)
         {
