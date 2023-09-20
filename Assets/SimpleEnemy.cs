@@ -19,6 +19,10 @@ public class SimpleEnemy : MonoBehaviour
     public float attackSpeed = 2;
     public float attackLength = 1;
 
+    public float navPointRadius = 1;
+    public Transform leftNavPoint;
+    public Transform rightNavPoint;
+
     private float speed;
     private float rotation = 0;
     private float desiredRotation;
@@ -82,7 +86,12 @@ public class SimpleEnemy : MonoBehaviour
 
     void TargetingLogic() {
 
+
+        Collider2D left = Physics2D.OverlapCircle(leftNavPoint.position, navPointRadius);
+        Collider2D right = Physics2D.OverlapCircle(rightNavPoint.position, navPointRadius);
+
         float distance = Vector2.Distance(transform.position, target);
+
 
         if (distance < attackRange && attackTimer <= attackLength)
         {
@@ -97,6 +106,20 @@ public class SimpleEnemy : MonoBehaviour
             lockRot = false;
             speed = moveSpeed;
             desiredRotation = desiredRotation = Vector2.SignedAngle(-spriteStack.sprites[0].transform.up, movementDir);
+        }
+        else if (left != null && right != null)
+        {
+            speed = moveSpeed * -1;
+        }
+        else if (left != null)
+        {
+            speed = moveSpeed;
+            rotation -= rotSpeed * Time.deltaTime * 2;
+        }
+        else if (right != null)
+        {
+            speed = moveSpeed;
+            rotation += rotSpeed * Time.deltaTime * 2;
         }
         else
         {
@@ -155,6 +178,12 @@ public class SimpleEnemy : MonoBehaviour
         Gizmos.color = Color.yellow;
 
         Gizmos.DrawWireSphere(transform.position, retreatDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(leftNavPoint.position, navPointRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(rightNavPoint.position, navPointRadius);
+
     }
 
 }
