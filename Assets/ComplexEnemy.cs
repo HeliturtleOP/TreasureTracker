@@ -21,10 +21,11 @@ public class ComplexEnemy : MonoBehaviour
     private float desiredRotation;
     private Vector2 movementDir;
 
-    private GameObject player;
+    private Vector2 target;
     private SpriteStack spriteStack;
     private Rigidbody2D rb;
     private ScreenShake screenShake;
+    private EnemyTargeting targeting;
 
     int randomDir;
 
@@ -32,9 +33,10 @@ public class ComplexEnemy : MonoBehaviour
     void Start()
     {
         screenShake = Camera.main.GetComponent<ScreenShake>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        //target = GameObject.FindGameObjectWithTag("Player").transform;
         spriteStack = GetComponentInChildren<SpriteStack>();
         rb = GetComponent<Rigidbody2D>();
+        targeting = GetComponent<EnemyTargeting>();
 
         speed = moveSpeed;
 
@@ -58,7 +60,9 @@ public class ComplexEnemy : MonoBehaviour
     void TargetPlayer()
     {
 
-        movementDir = player.transform.position;
+        target = targeting.target;
+
+        movementDir = target;
         movementDir = new Vector2(movementDir.x - transform.position.x, movementDir.y - transform.position.y);
         movementDir = movementDir.normalized;
 
@@ -100,11 +104,11 @@ public class ComplexEnemy : MonoBehaviour
 
     void rotateAroundPlayer() {
 
-        if (Vector2.Distance(transform.position, player.transform.position) < retreatRange)
+        if (Vector2.Distance(transform.position, target) < retreatRange)
         {
             desiredRotation = Vector2.SignedAngle(-spriteStack.sprites[0].transform.up, movementDir);
         }
-        else if (Vector2.Distance(transform.position, player.transform.position) < targetingRange)
+        else if (Vector2.Distance(transform.position, target) < targetingRange)
         {
              desiredRotation = Vector2.SignedAngle(randomDir* spriteStack.sprites[0].transform.right, movementDir);
         }

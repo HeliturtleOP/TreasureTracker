@@ -23,9 +23,10 @@ public class SimpleEnemy : MonoBehaviour
     private float rotation = 0;
     private float desiredRotation;
 
-    private GameObject player;
+    private Vector2 target;
     private SpriteStack spriteStack;
     private Rigidbody2D rb;
+    private EnemyTargeting targeting;
 
     private float attackTimer = 0;
     private Vector2 movementDir;
@@ -33,7 +34,7 @@ public class SimpleEnemy : MonoBehaviour
     void Start()
     {
 
-        player = GameObject.FindGameObjectWithTag("Player");        
+        targeting = GetComponent<EnemyTargeting>();       
         rb = GetComponent<Rigidbody2D>();
         spriteStack = GetComponentInChildren<SpriteStack>();
 
@@ -71,7 +72,9 @@ public class SimpleEnemy : MonoBehaviour
 
     void FindRotation() {
 
-        movementDir = player.transform.position;
+        target = targeting.target;
+
+        movementDir = target;
         movementDir = new Vector2(movementDir.x - transform.position.x, movementDir.y - transform.position.y);
         movementDir = movementDir.normalized;       
 
@@ -79,7 +82,7 @@ public class SimpleEnemy : MonoBehaviour
 
     void TargetingLogic() {
 
-        float distance = Vector2.Distance(transform.position, player.transform.position);
+        float distance = Vector2.Distance(transform.position, target);
 
         if (distance < attackRange && attackTimer <= attackLength)
         {

@@ -20671,8 +20671,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4965334704169377828}
   - component: {fileID: 6971794522076833383}
-  - component: {fileID: 8666171022316260813}
   - component: {fileID: 9163883106343697787}
+  - component: {fileID: 8666171022316260813}
+  - component: {fileID: 7643508208041672182}
   m_Layer: 0
   m_Name: EnemyShip
   m_TagString: Untagged
@@ -20716,6 +20717,34 @@ MonoBehaviour:
   navPointRadius: 0.35
   leftNavPoint: {fileID: 2521464563819248486}
   rightNavPoint: {fileID: 38537649204905973}
+--- !u!114 &9163883106343697787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413724592394913994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b8d4ba5eff63145a63fc047b7ab051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannonForce: 6
+  shotFrequency: 3
+  cannonBall: {fileID: 6829925296153707643, guid: 8b43718f40bc5bf49aadeb82b5e1f97b, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 307
+  cannonPositions:
+  - {fileID: 4878720664994580861}
+  - {fileID: 8350342406305388749}
+  - {fileID: 7420265598506928349}
+  - {fileID: 8940996396548029414}
+  particlePoints:
+  - {fileID: 6123407083939686260}
+  - {fileID: 7059067636279890630}
+  - {fileID: 5471847591275347247}
+  - {fileID: 7367297645735175790}
 --- !u!50 &8666171022316260813
 Rigidbody2D:
   serializedVersion: 4
@@ -20743,7 +20772,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &9163883106343697787
+--- !u!114 &7643508208041672182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20752,25 +20781,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5413724592394913994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b8d4ba5eff63145a63fc047b7ab051, type: 3}
+  m_Script: {fileID: 11500000, guid: 2393c4fd43a74b747ace13f3a324cfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cannonForce: 6
-  shotFrequency: 3
-  cannonBall: {fileID: 6829925296153707643, guid: 8b43718f40bc5bf49aadeb82b5e1f97b, type: 3}
-  mask:
-    serializedVersion: 2
-    m_Bits: 311
-  cannonPositions:
-  - {fileID: 4878720664994580861}
-  - {fileID: 8350342406305388749}
-  - {fileID: 7420265598506928349}
-  - {fileID: 8940996396548029414}
-  particlePoints:
-  - {fileID: 6123407083939686260}
-  - {fileID: 7059067636279890630}
-  - {fileID: 5471847591275347247}
-  - {fileID: 7367297645735175790}
+  target: {x: 0, y: 0}
+  edgeOffset: 2
 --- !u!1 &6060244636703809157
 GameObject:
   m_ObjectHideFlags: 0
