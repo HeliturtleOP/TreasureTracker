@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GenericHealth : MonoBehaviour
 {
 
     public float maxHealth = 10;
+
+    public Image healthBar;
 
     public LayerMask hitMask;
 
@@ -72,8 +75,16 @@ public class GenericHealth : MonoBehaviour
     {
         if((hitMask & (1 << collision.gameObject.layer)) != 0)
         {
+
+
             hitSound.Play();
-            health -= 0.5f;
+            health -= 1f;
+
+            if (healthBar != null)
+            {
+                healthBar.fillAmount = health / maxHealth;
+            }
+
         }
 
     }
