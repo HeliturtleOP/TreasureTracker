@@ -13,9 +13,13 @@ public class GenericHealth : MonoBehaviour
 
     public LayerMask hitMask;
 
+    public AudioSource hitSound;
+
+    private float lastHealth;
     private float health;
     private bool dead = false;
-    public AudioSource hitSound;
+
+    private float lerpTimer;
 
     private SpriteStack spriteStack;
     private Rigidbody2D rb;
@@ -33,15 +37,24 @@ public class GenericHealth : MonoBehaviour
         simpleEnemy = GetComponent<SimpleEnemy>();
         complexEnemy = GetComponent<ComplexEnemy>();
         health = maxHealth;
+        lastHealth = health;
     }
 
     // Update is called once per frame
     void Update()
     {
+        lerpTimer += Time.deltaTime * 4;
+
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = Mathf.Lerp(lastHealth/maxHealth, health / maxHealth, AnimationCurve.EaseInOut(0,0,1,1).Evaluate( lerpTimer));
+        }
+
         if (health <= 0)
         {
             if (dead == false)
             {
+
                 if (playerMovment)
                 {
                     playerMovment.moveSpeed = 0;
@@ -71,22 +84,27 @@ public class GenericHealth : MonoBehaviour
         }
     }
 
+    public void Damage(float damage)
+    {
+        lerpTimer = 0;
+        lastHealth = health;
+        hitSound.Play();
+        health -= damage;
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if((hitMask & (1 << collision.gameObject.layer)) != 0)
         {
-
-
-            hitSound.Play();
-            health -= 1f;
-
-            if (healthBar != null)
-            {
-                healthBar.fillAmount = health / maxHealth;
-            }
-
+            Damage(1);
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().triggerUpdate();
     }
 
 }

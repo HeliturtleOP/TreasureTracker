@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyTargeting))]
 public class SimpleEnemy : MonoBehaviour
 {
 
@@ -161,10 +162,10 @@ public class SimpleEnemy : MonoBehaviour
         if (collision.gameObject.layer == 8) {
 
             Camera.main.GetComponent<ScreenShake>().ShakeScreen(0.07f, 0.04f, 6);
+            GetComponent<GenericHealth>().Damage(GetComponent<GenericHealth>().maxHealth);
+            attackTimer += attackLength;
             absoluteLock = true;
             GetComponentInChildren<Collider2D>().enabled = false;
-            spriteStack.sink = true;
-            Destroy(gameObject, spriteStack.sinkDuration);
         
         }
     }

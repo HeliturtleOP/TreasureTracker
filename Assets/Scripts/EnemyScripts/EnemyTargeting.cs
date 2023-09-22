@@ -73,16 +73,21 @@ public class EnemyTargeting : MonoBehaviour
     {
         Gizmos.color = Color.magenta;
 
-        //right
-        Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(PlayspaceWidth + edgeOffset, 0), 0.1f);
-        //left
-        Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(-PlayspaceWidth - edgeOffset, 0), 0.1f);
-        //top
-        Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(0, PlayspaceHeight + edgeOffset), 0.1f);
-        //bottom
-        Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(0, -PlayspaceHeight - edgeOffset), 0.1f);
+        if(player != null )
+        {
+            //right
+            Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(PlayspaceWidth + edgeOffset, 0), 0.1f);
+            //left
+            Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(-PlayspaceWidth - edgeOffset, 0), 0.1f);
+            //top
+            Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(0, PlayspaceHeight + edgeOffset), 0.1f);
+            //bottom
+            Gizmos.DrawSphere((Vector2)player.transform.position + new Vector2(0, -PlayspaceHeight - edgeOffset), 0.1f);
 
-        Gizmos.DrawLine(transform.position, target);
+            Gizmos.DrawLine(transform.position, target);
+        }
+
+
 
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyTargeting))]
 public class ComplexEnemy : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -118,7 +119,6 @@ public class ComplexEnemy : MonoBehaviour
             randomDir = Random.Range(0, 2);
             randomDir = (int)Mathf.Lerp(-1, 1, randomDir);
         }
-
 
     }
 

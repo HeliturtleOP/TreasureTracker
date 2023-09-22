@@ -40,6 +40,7 @@ public class SpriteStack : MonoBehaviour
             sprites[i] = transform.GetChild(i);
             sprites[i].transform.localPosition = new Vector2(0, i*spacing);
             sprites[i].GetComponent<SpriteRenderer>().sortingOrder = i + baseSortingOrder;
+            sprites[i].rotation = Quaternion.Euler(new Vector3(0, 0, rotation * flipRotation));
         }
 
         if (riseAtStart) {
