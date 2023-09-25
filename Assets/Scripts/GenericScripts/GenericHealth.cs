@@ -88,6 +88,9 @@ public class GenericHealth : MonoBehaviour
     {
         lerpTimer = 0;
         lastHealth = health;
+
+        hitSound.pitch = 1 + Random.Range(-0.25f, 0.26f);
+
         hitSound.Play();
         health -= damage;
 

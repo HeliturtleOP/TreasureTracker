@@ -29,10 +29,10 @@ public class EdgeLooping : MonoBehaviour
         left.transform.position = Vector2.left * (xLimit + triggerOffset);
         right.transform.position = Vector2.right * (xLimit + triggerOffset);
 
-        top.size = new Vector2((xLimit + triggerOffset) * 2, 1);
-        bottom.size = new Vector2((xLimit + triggerOffset) * 2, 1);
-        left.size = new Vector2(1, (yLimit + triggerOffset) * 2);
-        right.size = new Vector2(1, (yLimit + triggerOffset) * 2);
+        top.size = new Vector2((xLimit + triggerOffset + 1) * 2, 1);
+        bottom.size = new Vector2((xLimit + triggerOffset + 1) * 2, 1);
+        left.size = new Vector2(1, (yLimit + triggerOffset + 1) * 2);
+        right.size = new Vector2(1, (yLimit + triggerOffset + 1) * 2);
 
     }
 
