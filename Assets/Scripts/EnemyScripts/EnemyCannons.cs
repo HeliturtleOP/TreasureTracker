@@ -92,9 +92,9 @@ public class EnemyCannons : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        //Gizmos.DrawRay(transform.position, spriteStack.sprites[0].transform.right);
+        Gizmos.DrawRay(transform.position, spriteStack.sprites[0].transform.right);
         Gizmos.color = Color.green;
-        //Gizmos.DrawRay(transform.position, -spriteStack.sprites[0].transform.right);
+        Gizmos.DrawRay(transform.position, -spriteStack.sprites[0].transform.right);
     }
 
 }

@@ -73,6 +73,11 @@ public class GenericHealth : MonoBehaviour
                     simpleEnemy.rotSpeed = 0;
                 }
 
+                if (healthBar != null)
+                {
+                    healthBar.transform.parent.gameObject.SetActive(false);
+                }
+
                 rb.velocity = Vector3.zero;
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
