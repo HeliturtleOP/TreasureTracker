@@ -23,12 +23,12 @@ public class MouseCollider : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+       Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 dif = mousePos - rb.position;
+        //Vector2 dif = mousePos - rb.position;
 
-        Debug.DrawRay(transform.position, dif);
-        //rb.position = mousePos;
-        rb.velocity = dif * 5;
+        //Debug.DrawRay(transform.position, dif);
+        rb.position = mousePos;
+        //rb.velocity = dif * 5;
     }
 }

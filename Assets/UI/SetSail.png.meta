@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1279ab04622ab4a4eb4bd6b10d51c7ea
+guid: 7d57c788e704d2646be5b3c26cb6ced0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Logo_0
+      name: SetSail_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 43
-        width: 167
-        height: 114
+        x: 5
+        y: 1
+        width: 91
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebd4bf1bf0135bf4190d40606e4fd09a
-      internalID: -204477358
+      spriteID: d22488de0029a2a41a78dd2feaed45ab
+      internalID: 1889436842
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Logo_0: -204477358
+      SetSail_0: 1889436842
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
