@@ -9,11 +9,15 @@ public class LevelManager : MonoBehaviour
 
     private GameObject player;
 
+    SceneChanger sceneChanger;
+
     // Start is called before the first frame update
     void Start()
     {
+        sceneChanger = GetComponent<SceneChanger>();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         player = GameObject.FindGameObjectWithTag("Player");
+        //triggerUpdate();
     }
 
     // Update is called once per frame
@@ -46,12 +50,23 @@ public class LevelManager : MonoBehaviour
         if (player == null)
         {
             //loose screen
+            sceneChanger.LoadScene(1);
             Debug.Log("you lose");
         }
 
         if (won)
         {
             //win screen
+
+            if (sceneChanger.currentScene() != sceneChanger.lastScene()-1)
+            {
+                sceneChanger.LoadScene(sceneChanger.currentScene() + 1);
+            }
+            else
+            {
+                sceneChanger.LoadScene(2);
+            }
+
             Debug.Log("you win");
         }
 

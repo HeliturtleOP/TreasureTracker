@@ -33,6 +33,16 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(Scene);
     }
 
+    public int currentScene()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
+    public int lastScene()
+    {
+        return SceneManager.sceneCountInBuildSettings;
+    }
+
     public void Exit()
     {
         Application.Quit();

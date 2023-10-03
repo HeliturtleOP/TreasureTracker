@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4005966251262606015}
   m_Layer: 12
   m_Name: SmallLillyPad
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ Rigidbody2D:
   m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &650587366648409243
 MonoBehaviour:
   m_ObjectHideFlags: 0
