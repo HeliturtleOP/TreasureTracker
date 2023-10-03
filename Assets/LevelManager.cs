@@ -35,6 +35,19 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(checkEnemies());
     }
 
+    public int getEnemies()
+    {
+        int count = 0;
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i] != null)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     private IEnumerator checkEnemies()
     {
         bool won = true;

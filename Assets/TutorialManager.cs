@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
@@ -14,6 +13,9 @@ public class TutorialManager : MonoBehaviour
     public int stage = 0;
 
     public LevelManager levelManager;
+
+    public SpriteRenderer countdown;
+    public Sprite[] numbers;
 
     [Header("Stage 1")]
     [Header("A Variables")]
@@ -65,8 +67,9 @@ public class TutorialManager : MonoBehaviour
 
     [Header("dummies")]
     public GameObject shipDummies;
-    
+    public GameObject dummyDummy;
 
+    private bool lockStage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,137 +79,163 @@ public class TutorialManager : MonoBehaviour
         wStart = wCover.transform.position;
 
         spaceStart = spaceCover.transform.position;
+
+        countdown.sprite = null;
+    }
+
+    public IEnumerator ChangeStage()
+    {
+        lockStage = true;
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            countdown.sprite = numbers[i];
+            yield return new WaitForSeconds(1);
+        }
+
+        stage++;
+
+        countdown.sprite = null;
+        lockStage = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (stage == 0)
+        if (!lockStage)
         {
-            if (Input.GetAxisRaw("Horizontal") < 0)
+            if (stage == 0)
             {
-                aProgress += Time.deltaTime / ObjectiveTime;
+                if (Input.GetAxisRaw("Horizontal") < 0)
+                {
+                    aProgress += Time.deltaTime / ObjectiveTime;
+                }
+                else if (Input.GetAxisRaw("Horizontal") > 0)
+                {
+                    dProgress += Time.deltaTime / ObjectiveTime;
+                }
+
+                if (Input.GetAxisRaw("Vertical") > 0)
+                {
+                    wProgress += Time.deltaTime / ObjectiveTime;
+                }
+
+                aCover.transform.position = Vector2.Lerp(aStart, a.transform.position, aProgress);
+                dCover.transform.position = Vector2.Lerp(dStart, d.transform.position, dProgress);
+                wCover.transform.position = Vector2.Lerp(wStart, w.transform.position, wProgress);
+
+                if (aProgress >= 1)
+                {
+                    aCheck.SetActive(true);
+                }
+
+                if (dProgress >= 1)
+                {
+                    dCheck.SetActive(true);
+                }
+
+                if (wProgress >= 1)
+                {
+                    wCheck.SetActive(true);
+                }
+
+
+                if (aCheck.activeSelf && dCheck.activeSelf && wCheck.activeSelf)
+                {
+
+                    a.SetActive(false);
+                    d.SetActive(false);
+                    w.SetActive(false);
+
+                    StartCoroutine(ChangeStage());
+                }
+
             }
-            else if (Input.GetAxisRaw("Horizontal") > 0)
+            else if (stage == 1)
             {
-                dProgress += Time.deltaTime / ObjectiveTime;
-            }
+                bool vertDone;
+                bool horDone;
 
-            if (Input.GetAxisRaw("Vertical") > 0)
+                top.SetActive(true);
+                bottom.SetActive(true);
+                left.SetActive(true);
+                right.SetActive(true);
+
+                SpriteRenderer topSprite  = top.GetComponent<SpriteRenderer>();
+                SpriteRenderer bottomSprite = bottom.GetComponent<SpriteRenderer>();
+                SpriteRenderer leftSprite = left.GetComponent<SpriteRenderer>();
+                SpriteRenderer rightSprite = right.GetComponent<SpriteRenderer>();
+
+                //detect player going through edge, and replace edge sprite with check mark
+                if (player.transform.position.y > top.transform.position.y + 1)
+                {
+                    topSprite.sprite = check;
+                }
+
+                if (player.transform.position.y < bottom.transform.position.y - 1)
+                {
+                    bottomSprite.sprite = check;
+                }
+
+                if (player.transform.position.x < left.transform.position.x - 1)
+                {
+                    leftSprite.sprite = check;
+                }
+
+                if (player.transform.position.x > right.transform.position.x + 1)
+                {
+                    rightSprite.sprite = check;
+                }
+
+                vertDone = topSprite.sprite == check && bottomSprite.sprite == check;
+                horDone = leftSprite.sprite == check && bottomSprite.sprite == check;
+
+                if (vertDone && horDone)
+                {
+
+                    top.SetActive(false);
+                    bottom.SetActive(false);
+                    left.SetActive(false);
+                    right.SetActive(false);
+
+                    StartCoroutine(ChangeStage());
+                }
+
+
+            }
+            else if (stage == 2)
             {
-                wProgress += Time.deltaTime / ObjectiveTime;
-            }
+                int count = levelManager.getEnemies() - 1;
 
-            aCover.transform.position = Vector2.Lerp(aStart, a.transform.position, aProgress);
-            dCover.transform.position = Vector2.Lerp(dStart, d.transform.position, dProgress);
-            wCover.transform.position = Vector2.Lerp(wStart, w.transform.position, wProgress);
+                space.SetActive(true);
+                SpaceCheck.SetActive(false);
+                shipDummies.SetActive(true);
 
-            if (aProgress >= 1)
+                levelManager.enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+                spaceProgress = 1 - ((float)count / 8);
+
+                spaceCover.transform.position = Vector2.Lerp(spaceStart, space.transform.position, spaceProgress);
+
+                if (spaceProgress >= 1)
+                {
+                    SpaceCheck.SetActive(true);
+                }
+
+                if (count == 0)
+                {
+                    space.SetActive(false);
+                    Destroy(dummyDummy);
+                    StartCoroutine(ChangeStage());
+                }
+
+
+            }else if (stage == 3)
             {
-                aCheck.SetActive(true);
+                levelManager.triggerUpdate();
             }
-
-            if (dProgress >= 1)
-            {
-                dCheck.SetActive(true);
-            }
-
-            if (wProgress >= 1)
-            {
-                wCheck.SetActive(true);
-            }
-
-
-            if (aCheck.activeSelf && dCheck.activeSelf && wCheck.activeSelf)
-            {
-                a.SetActive(false);
-                d.SetActive(false);
-                w.SetActive(false);
-
-                stage ++;
-            }
-
         }
-        else if (stage == 1)
-        {
-            bool vertDone;
-            bool horDone;
 
-            top.SetActive(true);
-            bottom.SetActive(true);
-            left.SetActive(true);
-            right.SetActive(true);
-
-            SpriteRenderer topSprite  = top.GetComponent<SpriteRenderer>();
-            SpriteRenderer bottomSprite = bottom.GetComponent<SpriteRenderer>();
-            SpriteRenderer leftSprite = left.GetComponent<SpriteRenderer>();
-            SpriteRenderer rightSprite = right.GetComponent<SpriteRenderer>();
-
-            //detect player going through edge, and replace edge sprite with check mark
-            if (player.transform.position.y > top.transform.position.y + 1)
-            {
-                topSprite.sprite = check;
-            }
-
-            if (player.transform.position.y < bottom.transform.position.y - 1)
-            {
-                bottomSprite.sprite = check;
-            }
-
-            if (player.transform.position.x < left.transform.position.x - 1)
-            {
-                leftSprite.sprite = check;
-            }
-
-            if (player.transform.position.x > right.transform.position.x + 1)
-            {
-                rightSprite.sprite = check;
-            }
-
-            vertDone = topSprite.sprite == check && bottomSprite.sprite == check;
-            horDone = leftSprite.sprite == check && bottomSprite.sprite == check;
-
-            if (vertDone && horDone)
-            {
-                top.SetActive(false);
-                bottom.SetActive(false);
-                left.SetActive(false);
-                right.SetActive(false);
-
-                stage++;
-            }
-
-
-        }
-        else if (stage == 2)
-        {
-
-            space.SetActive(true);
-
-            shipDummies.SetActive(true);
-
-            if (Input.GetButtonDown("Jump"))
-            {
-
-                //spaceProgress += (1 / spaceAmount);
-
-            }
-
-            //spaceCover.transform.position = Vector2.Lerp(spaceStart, space.transform.position, spaceProgress);
-
-            if (spaceProgress >= 1)
-            {
-                //SpaceCheck.SetActive(true);
-            }
-
-            levelManager.enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-
-        }else if (stage == 3)
-        {
-            levelManager.triggerUpdate();
-        }
+        
 
     }
 }
