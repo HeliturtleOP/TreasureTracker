@@ -11,8 +11,6 @@ public class EnemyCannons : MonoBehaviour
 
     public GameObject cannonBall;
 
-    public LayerMask mask;
-
     public GameObject[] cannonPositions;
 
     public ParticleSystem[] particlePoints;
@@ -41,29 +39,18 @@ public class EnemyCannons : MonoBehaviour
     private void FixedUpdate()
     {
 
-        RaycastHit2D leftHit = Physics2D.Raycast(transform.position, -spriteStack.sprites[0].transform.right, Mathf.Infinity);
-        RaycastHit2D rightHit = Physics2D.Raycast(transform.position, spriteStack.sprites[0].transform.right, Mathf.Infinity);
-
-        if (leftHit.collider != null)
+        for (int i = 0; i < cannonPositions.Length; i++)
         {
-            if (leftHit.collider.gameObject.layer == 8)
+            RaycastHit2D hit = Physics2D.Raycast(cannonPositions[i].transform.position, cannonPositions[i].transform.up, Mathf.Infinity);
+
+            if (hit && hit.collider.gameObject.layer == 8)
             {
                 if (shotTimer >= shotFrequency)
                 {
                     Shoot();
                 }
             }
-        }
 
-        if (rightHit.collider != null)
-        {
-            if (rightHit.collider.gameObject.layer == 8)
-            {
-                if (shotTimer >= shotFrequency)
-                {
-                    Shoot();
-                }
-            }
         }
 
     }
@@ -91,10 +78,11 @@ public class EnemyCannons : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, spriteStack.sprites[0].transform.right);
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, -spriteStack.sprites[0].transform.right);
+
+        for (int i = 0; i < cannonPositions.Length; i++)
+        {
+            Gizmos.DrawRay(cannonPositions[i].transform.position, cannonPositions[i].transform.up * 10);
+        }
     }
 
 }
