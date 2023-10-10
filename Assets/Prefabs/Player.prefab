@@ -17226,7 +17226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4364a4a96d1ba4a9326f83bc2e25f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 15
+  sinkOnDeath: 1
+  spawnOnDeath: 0
+  deathSpawn: {fileID: 0}
   healthBar: {fileID: 6221463449062160000}
   hitMask:
     serializedVersion: 2

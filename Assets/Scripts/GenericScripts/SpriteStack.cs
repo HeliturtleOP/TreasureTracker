@@ -92,7 +92,12 @@ public class SpriteStack : MonoBehaviour
 
     public IEnumerator sinkAnim(int dir)
     {
-        wake.SetActive(false);
+        if (wake)
+        {
+            wake.SetActive(false);
+        }
+
+        
         ParticleSystem bubbleParticles = Instantiate(bubbles, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
 
         bubbleParticles.Stop();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyCannons : MonoBehaviour
 {
@@ -15,8 +16,11 @@ public class EnemyCannons : MonoBehaviour
 
     public ParticleSystem[] particlePoints;
 
+    public LayerMask mask;
+
     private AudioSource sound;
 
+    
 
     private ScreenShake screenShake;
     private SpriteStack spriteStack;
@@ -41,7 +45,7 @@ public class EnemyCannons : MonoBehaviour
 
         for (int i = 0; i < cannonPositions.Length; i++)
         {
-            RaycastHit2D hit = Physics2D.Raycast(cannonPositions[i].transform.position, cannonPositions[i].transform.up, Mathf.Infinity);
+            RaycastHit2D hit = Physics2D.Raycast(cannonPositions[i].transform.position, cannonPositions[i].transform.up, Mathf.Infinity, mask);
 
             if (hit && hit.collider.gameObject.layer == 8)
             {

@@ -24946,7 +24946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6561967248260886099
 Transform:
   m_ObjectHideFlags: 0
@@ -25017,6 +25017,9 @@ MonoBehaviour:
   - {fileID: 2540869361595965312}
   - {fileID: 4788646316079817067}
   - {fileID: 279672193316931631}
+  mask:
+    serializedVersion: 2
+    m_Bits: 3895
 --- !u!114 &2824516333210486912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25044,6 +25047,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
+  sinkOnDeath: 1
+  spawnOnDeath: 0
+  deathSpawn: {fileID: 0}
   healthBar: {fileID: 7057399469765960828}
   hitMask:
     serializedVersion: 2

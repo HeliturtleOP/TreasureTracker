@@ -37,10 +37,12 @@ public class EdgeLooping : MonoBehaviour
             }
 
             Vector2 offsetSize = collision.gameObject.GetComponent<CapsuleCollider2D>().size;
+            
             if (offsetSize == null)
             {
                 offsetSize = collision.gameObject.GetComponent<BoxCollider2D>().size;
             }
+            //offsetSize = Vector2.zero;
 
             if (collision.transform.position.x < -xLimit)
             {

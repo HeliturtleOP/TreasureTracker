@@ -20912,9 +20912,6 @@ MonoBehaviour:
   cannonForce: 6
   shotFrequency: 3
   cannonBall: {fileID: 6829925296153707643, guid: 8b43718f40bc5bf49aadeb82b5e1f97b, type: 3}
-  mask:
-    serializedVersion: 2
-    m_Bits: 307
   cannonPositions:
   - {fileID: 4878720664994580861}
   - {fileID: 8350342406305388749}
@@ -20925,6 +20922,9 @@ MonoBehaviour:
   - {fileID: 7059067636279890630}
   - {fileID: 5471847591275347247}
   - {fileID: 7367297645735175790}
+  mask:
+    serializedVersion: 2
+    m_Bits: 3895
 --- !u!50 &8666171022316260813
 Rigidbody2D:
   serializedVersion: 4
@@ -20979,6 +20979,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  sinkOnDeath: 1
+  spawnOnDeath: 0
+  deathSpawn: {fileID: 0}
   healthBar: {fileID: 5412679302811366114}
   hitMask:
     serializedVersion: 2

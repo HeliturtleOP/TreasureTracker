@@ -5999,6 +5999,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  sinkOnDeath: 1
+  spawnOnDeath: 0
+  deathSpawn: {fileID: 0}
   healthBar: {fileID: 6704356431273822092}
   hitMask:
     serializedVersion: 2

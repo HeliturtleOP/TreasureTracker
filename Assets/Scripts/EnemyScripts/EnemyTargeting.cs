@@ -27,7 +27,15 @@ public class EnemyTargeting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target = FindNearestPath();
+        if (Mathf.Abs(transform.position.x) > PlayspaceWidth / 2 || Mathf.Abs(transform.position.y) > PlayspaceHeight / 2)
+        {
+            target = player.transform.position;
+        }
+        else
+        {
+            target = FindNearestPath();
+        }
+
     }
 
     Vector2 FindNearestPath()

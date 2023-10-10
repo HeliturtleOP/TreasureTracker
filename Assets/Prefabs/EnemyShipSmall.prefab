@@ -157,15 +157,15 @@ MonoBehaviour:
   cannonForce: 5
   shotFrequency: 4
   cannonBall: {fileID: 6829925296153707643, guid: 8b43718f40bc5bf49aadeb82b5e1f97b, type: 3}
-  mask:
-    serializedVersion: 2
-    m_Bits: 307
   cannonPositions:
   - {fileID: 1867614865437760103}
   - {fileID: 8106419496202510047}
   particlePoints:
   - {fileID: 1533003811812115858}
   - {fileID: 321827343847004544}
+  mask:
+    serializedVersion: 2
+    m_Bits: 3895
 --- !u!114 &6026466575382061956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +193,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  sinkOnDeath: 1
+  spawnOnDeath: 0
+  deathSpawn: {fileID: 0}
   healthBar: {fileID: 6561538331139683642}
   hitMask:
     serializedVersion: 2
@@ -5038,7 +5041,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -14785,7 +14788,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

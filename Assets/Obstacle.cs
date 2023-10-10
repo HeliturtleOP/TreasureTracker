@@ -10,6 +10,7 @@ public class Obstacle : MonoBehaviour
     void Start()
     {
         spriteStack = GetComponentInChildren<SpriteStack>();
+        if (spriteStack.rotation == 0)
         spriteStack.rotation = Random.Range(0f, 360f);
     }
 }

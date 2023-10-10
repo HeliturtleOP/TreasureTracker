@@ -9,6 +9,11 @@ public class GenericHealth : MonoBehaviour
 
     public float maxHealth = 10;
 
+    public bool sinkOnDeath = true;
+    public bool spawnOnDeath = false;
+
+    public GameObject deathSpawn;
+
     public Image healthBar;
 
     public LayerMask hitMask;
@@ -81,9 +86,21 @@ public class GenericHealth : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-                spriteStack.sink = true;
+                if (sinkOnDeath)
+                {
 
-                Destroy(gameObject, spriteStack.sinkDuration);
+                    spriteStack.sink = true;
+
+                    Destroy(gameObject, spriteStack.sinkDuration);
+                }
+
+                if (spawnOnDeath)
+                {
+                    SpriteStack newSprites = Instantiate(deathSpawn, transform.position, Quaternion.identity).GetComponentInChildren<SpriteStack>();
+                    newSprites.rotation = spriteStack.rotation;
+                    Destroy(gameObject);
+                }
+
             }
             dead = true;
         }
@@ -112,7 +129,15 @@ public class GenericHealth : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameObject.Find("LevelManager").GetComponent<LevelManager>().triggerUpdate();
+        try
+        {
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().triggerUpdate();
+        }
+        catch (System.Exception)
+        {
+
+            //throw;
+        }
     }
 
 }
