@@ -17201,7 +17201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannonForce: 6
-  fireRate: 1
+  fireRate: 0.6
   cannonBall: {fileID: 6829925296153707643, guid: 8b43718f40bc5bf49aadeb82b5e1f97b, type: 3}
   cannonPositions:
   - {fileID: 7460373645376178775}
