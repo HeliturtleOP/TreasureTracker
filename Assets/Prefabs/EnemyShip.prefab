@@ -20897,6 +20897,9 @@ MonoBehaviour:
   navPointRadius: 0.35
   leftNavPoint: {fileID: 2521464563819248486}
   rightNavPoint: {fileID: 38537649204905973}
+  mask:
+    serializedVersion: 2
+    m_Bits: 11571
 --- !u!114 &9163883106343697787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20924,7 +20927,7 @@ MonoBehaviour:
   - {fileID: 7367297645735175790}
   mask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 11571
 --- !u!50 &8666171022316260813
 Rigidbody2D:
   serializedVersion: 4

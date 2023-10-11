@@ -15,6 +15,7 @@ public class ComplexEnemy : MonoBehaviour
     public float navPointRadius = 1;
     public Transform leftNavPoint;
     public Transform rightNavPoint;
+    public LayerMask mask;
 
     private float speed;
     private float rotation;
@@ -67,8 +68,8 @@ public class ComplexEnemy : MonoBehaviour
         movementDir = new Vector2(movementDir.x - transform.position.x, movementDir.y - transform.position.y);
         movementDir = movementDir.normalized;
 
-        Collider2D left = Physics2D.OverlapCircle(leftNavPoint.position, navPointRadius);
-        Collider2D right = Physics2D.OverlapCircle(rightNavPoint.position, navPointRadius);
+        Collider2D left = Physics2D.OverlapCircle(leftNavPoint.position, navPointRadius, mask);
+        Collider2D right = Physics2D.OverlapCircle(rightNavPoint.position, navPointRadius, mask);
 
         if (left != null && right != null)
         {
