@@ -231,6 +231,7 @@ public class TutorialManager : MonoBehaviour
 
             }else if (stage == 3)
             {
+                lockStage = true;
                 levelManager.triggerUpdate();
             }
         }
