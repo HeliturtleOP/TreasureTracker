@@ -27,14 +27,18 @@ public class EnemyTargeting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(transform.position.x) > PlayspaceWidth / 2 || Mathf.Abs(transform.position.y) > PlayspaceHeight / 2)
+        if (player)
         {
-            target = player.transform.position;
+            if (Mathf.Abs(transform.position.x) > PlayspaceWidth / 2 || Mathf.Abs(transform.position.y) > PlayspaceHeight / 2)
+            {
+                target = player.transform.position;
+            }
+            else
+            {
+                target = FindNearestPath();
+            }
         }
-        else
-        {
-            target = FindNearestPath();
-        }
+
 
     }
 

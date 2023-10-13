@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCannons : MonoBehaviour
 {
     public float cannonForce = 1;
     public float fireRate = 3;
+
+    public Image reloadIndicator;
 
     public GameObject cannonBall;
 
@@ -24,12 +27,13 @@ public class PlayerCannons : MonoBehaviour
     
     void Update()
     {
-        timer += Time.deltaTime;
+        timer += Time.deltaTime / fireRate;
 
+        reloadIndicator.fillAmount = timer;
 
         if (Input.GetButtonDown("Jump")) 
         {
-            if (timer >= fireRate)
+            if (timer >= 1)
             {
 
                 cannonAudio.Play();
