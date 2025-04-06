@@ -27,6 +27,8 @@ public class SpriteStack : MonoBehaviour
 
     public Transform[] sprites;
 
+    public bool autoRotate = false;
+
     void Start()
     {
         currentRotation = rotation;
@@ -58,6 +60,11 @@ public class SpriteStack : MonoBehaviour
 
     void Update()
     {
+
+        if(autoRotate)
+        {
+            rotation += Time.deltaTime * 360 / 5;
+        }
 
         manageRotation();
 
