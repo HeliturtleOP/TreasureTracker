@@ -54,6 +54,9 @@ public class TutorialManager : MonoBehaviour
     public GameObject left;
     public GameObject right;
 
+    [Header("Text")]
+    public GameObject text;
+
     [Header("SpriteSwaps")]
     public Sprite check;
 
@@ -165,6 +168,8 @@ public class TutorialManager : MonoBehaviour
                 SpriteRenderer leftSprite = left.GetComponent<SpriteRenderer>();
                 SpriteRenderer rightSprite = right.GetComponent<SpriteRenderer>();
 
+                text.SetActive(true);
+
                 //detect player going through edge, and replace edge sprite with check mark
                 if (player.transform.position.y > top.transform.position.y + 1)
                 {
@@ -196,6 +201,7 @@ public class TutorialManager : MonoBehaviour
                     bottom.SetActive(false);
                     left.SetActive(false);
                     right.SetActive(false);
+                    text.SetActive(false);
 
                     StartCoroutine(ChangeStage());
                 }
