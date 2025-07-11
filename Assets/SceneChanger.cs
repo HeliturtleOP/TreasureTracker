@@ -26,13 +26,11 @@ public class SceneChanger : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButton(0))
-        {
             if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
             {
+                if(Input.anyKeyDown)
                 SceneManager.LoadScene(0);
             }
-        }
     }
 
     public void LoadScene(int Scene)
